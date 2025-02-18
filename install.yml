@@ -1,0 +1,4 @@
+- name: install package {{ pkg }}
+  package:
+    name: "{{ pkg }}"
+    state: latest

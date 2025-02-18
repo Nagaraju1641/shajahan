@@ -1,0 +1,4 @@
+- name: set homepage content {{ homepage }}
+  copy:
+    content: " {{ ansible_fqdn }} has been deployed with ansible"
+    dest: "{{ file }}"
