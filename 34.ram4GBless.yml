@@ -1,0 +1,7 @@
+- name: get RAm size of systems 
+  hosts: servers
+  tasks:
+    - name: get RAM info
+      debug:
+        msg: "RAM AVAILABLE : {{ ansible_memtotal_mb }} is less than 4GB"
+      failed_when: ansible_memtotal_mb < 4096

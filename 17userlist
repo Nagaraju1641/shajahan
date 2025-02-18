@@ -1,0 +1,15 @@
+users: 
+    - username: lu51
+      comment: "LocalUser13"
+      shell: /bin/sh
+      password: redhat
+    
+    - username: lu52
+      comment: "devopsuseryyy 32"
+      shell: /bin/bash
+      password: redhat
+    
+    - username: lu53
+      comment: "Backup User 33"
+      shell: /bin/nologin
+      password: redhat

@@ -1,0 +1,29 @@
+- name: Create user directories and log files
+  hosts: localhost
+  gather_facts: no
+  vars: 
+    list_one:
+      - AA
+      - BB 
+      - CC
+    list_two:
+      - 11
+      - 22
+      - 33
+  tasks:
+    - name: Ensure directories exist
+      # file:
+      #   path: "/home/{{ item[0] }}/logs"
+      #   state: directory
+      #   mode: '0755'
+      debug:
+        msg:
+          - "creating directory: /home/{{ item[0]}}/logs/{{ item[1] }}"
+      with_nested:
+        - [ "alice", "bob", "charlie" ]
+        - [ "app1", "app2" ]
+    
+    - name: with_nested -> loop
+      ansible.builtin.debug:
+          msg: "{{ item.0 }} - {{ item.1 }}"
+      loop: "{{ list_one|product(list_two)|list }}"

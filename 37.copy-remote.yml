@@ -1,0 +1,15 @@
+- name: copy using copy module
+  hosts: servers
+  tasks: 
+    - name: copy from control node to managednodes
+      copy: 
+        src: cal25.txt
+        dest: /tmp/cal25.txt
+        #remote_src: yes #copy same managednode between 2 dirs
+        #remote_src: no #copy from control node to  managednode dest
+    - name: get report
+      shell: 'uptime > /tmp/up.txt ; df -h >>/tmp/up.txt'
+    - name: fetch the data
+      fetch: 
+        src: /tmp/up.txt
+        dest: /tmp/

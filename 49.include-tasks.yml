@@ -1,0 +1,17 @@
+- name: testing import tasks using file
+  hosts: node1.example.com
+  tasks:
+    - name: install dialog direct task
+      package: 
+        name: dialog
+        state: present
+    - name: include task from a file
+      include_tasks: tasks/install.yml
+      vars:
+        pkg: httpd
+      when: ansible_os_family == "RedHat"
+
+    - name: start service
+      include_tasks: tasks/service.yml
+      vars:
+        srv: httpd

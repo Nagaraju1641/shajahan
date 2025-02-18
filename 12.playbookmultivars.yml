@@ -1,0 +1,20 @@
+- name: install / remove web app pack
+  hosts: servers
+  vars:
+    pack: httpd
+    deploy: latest # for removal use absent
+    serv: httpd
+  tasks:
+    - name: "T1 install {{pack}}"
+      vars: 
+        pack: nginx
+      yum:
+        name: "{{ pack }}"
+        state: "{{ deploy }}" 
+    - name: service start
+      service:  
+        name: "{{ serv }}"
+        enabled: true
+      vars:
+        serv: nginx
+  

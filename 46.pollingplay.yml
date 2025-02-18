@@ -1,0 +1,19 @@
+- name: test polling activity
+  hosts: servers
+  tasks:
+    - name: run some long running script
+      command: sleep 20
+      async: 30
+      poll: 0
+      register: jobdata
+
+    - name: uptime
+      command: uptime
+
+    - name: Check on an async task
+      async_status:
+       jid: "{{ jobdata.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 10
+      delay: 5

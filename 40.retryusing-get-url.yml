@@ -1,0 +1,19 @@
+- name: get from 10.0.5.1/source.html build web sites
+  hosts: servers
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+    - name: get the 10.0.5.1/source.html
+      get_url:
+        url: http://10.0.5.1/source.html
+        dest: /var/www/html/index.html
+      register: download_result
+      until: download_result is succeeded
+      retries: 3
+      delay: 5
+    - name: start the service
+      service:
+        name: httpd
+        state: started

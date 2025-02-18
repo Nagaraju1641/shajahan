@@ -1,0 +1,70 @@
+#YAML <key>: <value>
+#string
+team: csk
+city: "chennai based"
+#numeric 
+year: 2008
+is_current_champ: true #false, yes/no, 0/1 (boolean)
+playes:
+  - msdhoni
+  - mathew
+  - Sraina
+
+Apps:
+  - httpd
+  - mariadb
+  - dialog
+
+#dictionary
+servers:
+  - hostname: node1
+    ipadd: 10.0.0.2
+    role: webserver
+
+  - hostname: node2
+    ipadd: 10.0.0.3
+    role: dbserver
+      
+
+
+Playbook Basics
+playbook - one or more plays
+play - one or mote tasks(hosts)
+task - module /options
+
+playbook1.yml
+---
+- name: play 1 -
+  hosts: webservers
+  tasks:
+    - name: task1 install httpd
+      yum:
+        name: httpd
+        state: installed
+
+    - name: task2 start httpd service
+      service:
+        name: httpd
+        state: started
+
+- name: play 2 -
+  hosts: dbservers
+  tasks:
+    - task1 - install mariadb server
+      yum:
+        name: mariadb-server
+        state: latest
+
+    - task2 start ther service
+
+
+
+- name: play 3 -
+  hosts: appserver
+  tasks:
+
+
+
+
+
+

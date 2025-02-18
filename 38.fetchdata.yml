@@ -1,0 +1,8 @@
+- name: copy using copy module
+  hosts: servers
+  tasks: 
+    - name: copy from control node to managednodes
+      fetch: 
+        src: /tmp/diskfree.txt
+        dest: "/tmp/{{ ansible_fqdn }}.diskfree.txt"  #controllernode path
+        flat: yes

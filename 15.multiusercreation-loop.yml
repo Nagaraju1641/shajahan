@@ -1,0 +1,26 @@
+- name: create multiple users
+  hosts: node2.example.com
+  vars: 
+    users:
+      - lu11
+      - lu12
+      - lu13
+    dirs:
+      - appdata
+      - dbdata
+      - datafolder
+
+  tasks:
+    - name: create users
+      user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users }}"
+        # - lu1
+        # - lu2
+        # - lu3
+    - name: create folders
+      file: 
+        path: "/tmp/{{ item }}"
+        state: directory
+      loop: "{{ dirs }}"

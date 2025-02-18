@@ -1,0 +1,9 @@
+- name: gather facts by default
+  hosts: node1.example.com
+  gather_facts: false
+  tasks:
+    - name: info abt node1
+      debug:
+        msg: 
+          - "the node ip address is  {{ ansible_all_ipv4_addresses }}"
+          - "the distro is {{ ansible_distribution }}"

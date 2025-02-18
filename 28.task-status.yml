@@ -1,0 +1,9 @@
+- name: get results
+  hosts: servers
+  tasks:
+    - name: demo command module
+      command: id
+      register: id_out
+    - name: debug id_out
+      debug:
+        var: id_out

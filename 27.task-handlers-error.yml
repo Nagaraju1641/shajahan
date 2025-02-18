@@ -1,0 +1,46 @@
+- name: Install and set home page on servers
+  hosts: servers
+  force_handlers: true
+  tasks:
+    - name: T1 - install web server package
+      package: 
+        name: httpd
+        state: present
+    # - name: T222 restart_httpd
+    #   service:
+    #     name: httpd
+    #     state: restarted
+    #     enabled: true
+    - name: T2 create home page
+      copy:
+        content: "Welcome to web server deployed using ansible - change7"
+        dest: /var/www/html/index1.html
+      notify: 
+        - H1_restart_httpd
+        - H1_restart_mariadb
+    - name: creating an erroring tasks
+      yum:
+        name: notaapp
+        state: present
+    - name: T3 open http service in firewalld
+      ansible.posix.firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true
+    
+  
+  handlers:
+    - name: H1_restart_httpd
+      service:
+        name: httpd
+        state: restarted
+        enabled: true
+  #    notify: H1_restart_mariadb 
+    - name: H1_restart_mariadb
+      service:
+        name: mariadb
+        state: restarted
+        enabled: true
+
+

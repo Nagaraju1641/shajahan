@@ -1,0 +1,14 @@
+- name: check status and start
+  hosts: servers
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+      register: status_data
+    # - name: get debug details
+    #   debug:
+    #     var: status_data
+    - name: start systemd service if it is inactive
+      service:
+        state: restarted
+        name: httpd.service
+      when: ansible_facts.services['httpd.service'].state == "inactive"

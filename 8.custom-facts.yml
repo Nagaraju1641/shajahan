@@ -1,0 +1,13 @@
+- name: gather custom facts
+  hosts: servers
+  tasks:
+    - name: gather custom fact environment
+      debug:
+        msg:
+          - "The host fqdn is {{ ansible_fqdn }}"
+          - "The host belongs to Env: {{ ansible_local.cf.dept.env }}" 
+    - name: deploy dialog app only in dev environment
+      yum: 
+        name: dialog 
+        state: present
+      when: ansible_local.cf.dept.env == "dev"

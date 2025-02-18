@@ -1,0 +1,17 @@
+- name: testing task failures
+  hosts: servers
+  ignore_errors: yes
+  tasks:
+    - name: install an "app1"
+      yum:
+        name: dialogggggg
+        state: latest
+      #ignore_errors: true
+    - name: create user
+      user:
+        names: ops111
+        state: present
+    - name: create a file
+      copy:
+        content: "test message"
+        dest: /tmp/test.txt

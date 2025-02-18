@@ -1,0 +1,32 @@
+- name: "Install web server {{ app }} and set home page on servers"
+  hosts: servers
+  tasks:
+    - name: "T1 - install web server package {{ app }}"
+      package: 
+        name: "{{ app }}"
+        state: present
+    - name: "T2 start {{ servicename }} service"
+      service:
+        name: "{{ servicename }}"
+        state: started
+        enabled: true
+    - name: "T3 create home page in {{ hppath }}"
+      copy:
+        content: "{{ webcontent }}"
+        dest: "{{ hppath }}/index.html"
+    - name: "T4 open web service port in firewalld {{ webport }}"
+      ansible.posix.firewalld:
+        port: "{{ webport}}"
+        state: enabled
+        permanent: true
+        immediate: true
+
+# - name: play to test web sites
+#   hosts: localhost
+#   become: no
+#   tasks:
+#     - name: test connection server
+#       uri:
+#         url: http://node1.example.com
+#         return_content: yes
+#         status_code: 200

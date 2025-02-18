@@ -1,0 +1,7 @@
+- name: get from 10.0.5.1/source.html build web sites
+  hosts: servers
+  tasks:
+    - name: append a new line to afile
+      lineinfile:
+        path: /etc/motd
+        line: "#-----------------------------Ansible managed Node------------------------"

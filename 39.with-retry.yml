@@ -1,0 +1,9 @@
+- name: copy using copy module
+  hosts: servers
+  tasks:
+    - name: retry the command
+      command: /bin/false
+      retries: 4
+      delay: 2
+      register: result
+      until: result is not failed

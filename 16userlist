@@ -1,0 +1,8 @@
+users:
+    - lu21
+    - lu22
+    - lu23
+dirs:
+    - app1
+    - data1
+    - db1

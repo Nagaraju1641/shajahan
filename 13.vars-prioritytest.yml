@@ -1,0 +1,30 @@
+- name: testing variable priority
+  hosts: servers
+  vars:
+    pkg1: from-playbook-playlevel
+  tasks:
+    - name: get id
+      command: id
+      register: id_out
+    - name: using debug
+      vars:
+        pkg1: from-tasklevel-vars
+      debug:
+        msg:
+          - " this var taken from {{ pkg1 }}"
+          # - " this var taken from {{ }}"
+          # - " this var taken from {{ }}"
+          # - " this var taken from {{ }}"
+    - name: 2nd tasks
+      debug:
+        msg:
+          - "this will take from {{ pkg1 }}"
+    - name: get id info
+      debug:
+        var: id_out
+- name: playbook2
+  hosts: node2.example.com
+  tasks:
+    - name: get task1 register info
+      debug:
+        var: id_out

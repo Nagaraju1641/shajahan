@@ -1,0 +1,15 @@
+- name: create if file doesnot exist
+  hosts: servers
+  tasks:
+    - name: check file exists
+      stat:
+        path: /tmp/example.txt
+      register: filestat
+    # - name: debug file stat
+    #   debug:
+    #     var: filestat
+    - name: create the /tmp/example.txt
+      copy:
+        content: "hello, ansible-file updated - new"
+        dest: /tmp/example.txt
+      when: not filestat.stat.exists

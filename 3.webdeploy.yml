@@ -1,0 +1,32 @@
+- name: Install and set home page on servers
+  hosts: servers
+  tasks:
+    - name: T1 - install web server package
+      package: 
+        name: httpd
+        state: present
+    - name: T2 start httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: T3 create home page
+      copy:
+        content: "Welcome to web server deployed using ansible"
+        dest: /var/www/html/index.html
+    - name: T4 open http service in firewalld
+      ansible.posix.firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true
+
+- name: play to test web sites
+  hosts: localhost
+  become: no
+  tasks:
+    - name: test connection server
+      uri:
+        url: http://node1.example.com
+        return_content: yes
+        status_code: 200

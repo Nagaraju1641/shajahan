@@ -1,0 +1,12 @@
+- name: create group and add user to that group
+  hosts: servers
+  tasks:
+    - name: create group
+      group:
+        name: salesgroup
+        state: present
+    - name: create salesmanager
+      ansible.builtin.user:
+        name: salesmanager
+        shell: /bin/sh
+        groups: salesgroup

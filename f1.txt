@@ -1,0 +1,9 @@
+- name: install app
+  hosts: servers
+  vars_files:
+    - varfile #/path/to/file
+  tasks:
+    - name: install app
+      yum:
+        name: "{{ p1 }}"
+        state: present

@@ -1,0 +1,11 @@
+- name: modify config file
+  hosts: servers
+  tasks:
+    - name: modify a regex pattern with value
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        line: "ServerAdmin admin@tcs.com"
+        regexp: "^ServerA*"
+        #regexp: "configuration directive."
+        state: present
+

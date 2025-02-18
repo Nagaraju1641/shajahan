@@ -1,0 +1,21 @@
+- name: check service status and start service
+  hosts: servers
+  tasks:
+    - name: check status of httpd
+      shell: systemctl status httpd.service
+      register: httpd_status
+      ignore_errors: yes
+    # - name: debug status
+    #   debug:
+    #     var: httpd_status
+    - name: start service if status inactive
+      shell: systemctl start httpd.service
+      when: "'inactive' in httpd_status.stdout"
+
+    - name: get systemd status of httpd
+      systemd:
+        name: httpd
+      register: current_status
+    - name: display current status
+      debug:
+        var: current_status

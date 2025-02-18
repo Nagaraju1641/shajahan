@@ -1,0 +1,26 @@
+- name: block-rescue-always
+  hosts: node2.example.com
+  tasks:  
+    - name: main block
+      block:
+        - name: task create a file
+          file: 
+            path: /tmp/f1.txt
+            state: touch
+        - name: execute command
+          #command: /bin/false
+          command: id
+        - name: task3 will not if task2 fails
+          file:
+            path: /tmp/f2.txt
+            state: touch
+     # when: 
+      rescue:
+        - name: rescue task1
+          file:
+            path: /tmp/f1.txt
+            state: absent
+      always:
+        - name: always run
+          debug:
+            msg: "this will run always" 

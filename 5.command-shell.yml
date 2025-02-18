@@ -1,0 +1,13 @@
+- name: play command/shell
+  hosts: servers
+  tasks:
+    - name: use of command
+      command: id
+      register: id_result #out put saved to register
+    - name: debug use #get output ro terminal
+      debug:
+        #var: id_result
+        msg: "the output of previous task is {{ id_result.stdout }}   yyyyyyyyyyyyyyyyyyyyy "
+    - name: get the ip address
+      #command: ip ad sh |grep 10.0.
+      shell: ip ad sh |grep 10.0.

@@ -1,0 +1,11 @@
+- name: check file existance
+  hosts: servers
+  tasks:
+    - name: check file
+      command: "ls /filenotthere"
+      register: lsout
+      failed_when: lsout.rc == 2
+      ignore_errors: yes
+    # - name: debug data
+    #   debug:
+    #     var: lsout

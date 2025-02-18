@@ -1,0 +1,9 @@
+- name: get results
+  hosts: node2.example.com
+  force_handlers: true
+  tasks:
+    - name: execute user creation script
+      command: uc.sh
+      register: result
+      changed_when: "'user created successfully' in result.stdout"
+      failed_when: "'user creation failed' in result.stdout"

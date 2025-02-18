@@ -1,0 +1,12 @@
+- name: gather facts of node1
+  hosts: servers
+  tasks:
+    - name: collect facts 
+      setup:
+      register: hostinfo
+    - name: pring gathered info
+      debug:
+        msg:
+          - "The host FQDN is {{ hostinfo.ansible_facts.ansible_fqdn }}"
+          - "The IP address of the host is {{ hostinfo.ansible_facts.ansible_all_ipv4_addresses }}"
+          - "The OS distro is  {{ hostinfo.ansible_facts.ansible_distribution }}"

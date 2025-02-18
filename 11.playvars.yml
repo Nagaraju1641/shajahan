@@ -1,0 +1,9 @@
+- name: deploy app using PB vars
+  hosts: servers
+  vars:
+    pack1: vim
+  tasks:
+    - name: "install app {{ pack1 }}"
+      yum: 
+        name: "{{ pack1 }}"
+        state: latest

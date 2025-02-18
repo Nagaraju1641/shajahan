@@ -1,0 +1,17 @@
+- name: testing import tasks using file
+  hosts: node1.example.com
+  tasks:
+    - name: import task of installing package
+      import_tasks: tasks/install.yml
+      vars:
+        pkg: httpd  #nginx 
+
+    - name: import task of setting hp 
+      import_tasks: tasks/homepage.yml
+      vars:
+        file: /var/www/html/index.html
+    
+    - name: import task service
+      import_tasks: tasks/service.yml
+      vars:
+        srv: httpd

@@ -1,0 +1,20 @@
+- name: test playbook
+  hosts: servers
+  vars:
+    pkg: httpd
+    file: /var/www/html/index.html
+    srv: httpd
+  tasks:
+    - name: install package {{ pkg }}
+      package:
+        name: "{{ pkg }}"
+        state: latest
+    
+    - name: set homepage content {{ homepage }}
+      copy:
+        content: " {{ ansible_fqdn }} has been deployed with ansible"
+        dest: "{{ file }}" 
+    
+    - name: start the service {{ srv }}
+      service:
+        name: "{{ srv }}"

@@ -1,0 +1,12 @@
+- name: test existence user
+  hosts: node2.example.com
+  tasks:
+    - name: get user accounts
+      shell: 'cat /etc/passwd | grep d55'
+      register: user_data
+      ignore_errors: yes
+    - name: debug 
+      debug: 
+        #var: user_data
+        msg: "user d555 is not exists"
+      when: "user_data.rc != 0" 

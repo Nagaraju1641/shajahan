@@ -1,0 +1,14 @@
+- name: get results
+  hosts: node2.example.com
+  tasks:
+    - name: execute user creation script
+      command: uc.sh
+      register: result
+      changed_when: "'user created successfully' in result.stdout"
+    - name: debug results info
+      debug:
+        var: result
+    - name: using fail module
+      fail: 
+        msg: "user creation failed"
+      when: "'user creation failed' in result.stdout"

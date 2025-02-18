@@ -1,0 +1,6 @@
+app: nginx
+servicename: nginx
+#hppath: /var/www/html
+hppath: /usr/share/nginx/html #nginx default HP path#
+webport: 80/tcp
+pkg1: taken-from-group_vars/groupname-location
